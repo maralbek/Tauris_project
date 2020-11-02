@@ -216,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
             //we proceed only if all fingers are detected. Thumb is not that crucial in our case. Also we return the location of index finger only
             //***change this part 28/08/2020
-            if(indexdetected == true) { //&& middledetected == true && ringdetected == true && pinkydetected == true) {
+            if(indexdetected == true && middledetected == true && ringdetected == true && pinkydetected == true) {
                 //step is the dimensions of the square cell in pixels
                 int step = 15;
                 //here we calculate the center of the fingertip from the surrounding box. It is reverse process of center_x and center_y found before
