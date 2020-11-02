@@ -30,6 +30,7 @@ import org.opencv.dnn.Net;
 import org.opencv.imgproc.Imgproc;
 import org.opencv.dnn.Dnn;
 import org.opencv.utils.Converters;
+import org.opencv.android.FpsMeter;
 
 
 import org.opencv.objdetect.QRCodeDetector;
@@ -57,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     boolean QRdetected = false;
     int step = 40;
     int counter = 0;
+    FpsMeter fpsMeter = new FpsMeter();
+
     Net tinyYolo;
     public static String tinyYoloCfg;
     public static String tinyYoloWeights;
@@ -303,6 +306,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             int sum = 0;
             //if only 3 markers are detected
             if (ids.size(0) == 3) {
+                fpsMeter.measure();
+
                 int size = 3;
                 for (int i = 0; i < 3; i++) {
                     int ID = (int) ids.get(i, 0)[0];
@@ -383,6 +388,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
             //if all of the markers detected
             if (ids.size(0) > 3) {
+                fpsMeter.measure();
                 int size = 4;
                 //iterate over each Aruco marker
                 for (int i = 0; i < 4; i++) {
