@@ -1,8 +1,12 @@
 package com.example.YoloDetectionFiveFingers;
 import android.content.res.AssetManager;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.VibrationEffect;
+import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.SurfaceView;
@@ -58,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     boolean QRdetected = false;
     int step = 40;
     int counter = 0;
+    int vibro = 0;
+
     FpsMeter fpsMeter = new FpsMeter();
 
     Net tinyYolo;
@@ -303,7 +309,23 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             Mat perspectiveTransformation = new Mat();
             //Start detecting Aruco markers
             Aruco.detectMarkers(inputFrame.gray(), dictionary, corners, ids);
+            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
             int sum = 0;
+            if (ids.size(0) < 3 && ids.size(0) > 0){
+                vibro = vibro+1;
+
+                if (vibro == 100) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+                        vibro = 0;
+                    } else {
+                        //deprecated in API 26
+                        v.vibrate(300);
+                        vibro = 0;
+                    }
+                }
+            }
             //if only 3 markers are detected
             if (ids.size(0) == 3) {
                 fpsMeter.measure();
