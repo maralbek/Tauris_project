@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
         outBlobNames.add(0, "yolo_16");
         outBlobNames.add(1, "yolo_23");
         tinyYolo.forward(result,outBlobNames);
-        float confThreshold = 0.3f;
+        float confThreshold = 0.2f;
         List<Integer> clsIds = new ArrayList<>();
         List<Float> confs = new ArrayList<>();
         List<Rect> rects = new ArrayList<>();
