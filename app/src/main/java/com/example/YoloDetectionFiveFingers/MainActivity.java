@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     int step = 40;
     int counter = 0;
     int vibro = 0;
+    String final_planet = "false";
 
     FpsMeter fpsMeter = new FpsMeter();
 
@@ -256,7 +257,14 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
                     //proceed only if the cell value is within the array size
                     if (cell_number >= 0 && cell_number <= 2400) {
-                        String final_planet = fetchData.list.get(cell_number);
+                        System.out.println("cell number is " + cell_number);
+
+                        try {
+                            final_planet = fetchData.list.get(cell_number);
+                        } catch(IndexOutOfBoundsException e) {
+                            System.out.println("The index you have entered is invalid");
+                            final_planet = "false";
+                        }
                         //Only TTS text when the object location is not empty and is changed so one text is not repeated many times
                         if (!final_planet.equals(newResult) && !"false".equals(final_planet)) {
                             convertTextToSpeech(final_planet);
