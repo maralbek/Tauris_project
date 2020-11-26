@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     String newResult; //This variable needed to compare old and new text which is to be converted to speech
     boolean fetched = false;
     boolean QRdetected = false;
+    boolean datafetched = false;
     int step = 40;
     int counter = 0;
     int vibro = 0;
@@ -258,11 +259,15 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                     //proceed only if the cell value is within the array size
                     if (cell_number >= 0 && cell_number <= 2400) {
                         System.out.println("cell number is " + cell_number);
-
+                        // catch exception if json file was not downloaded
                         try {
                             final_planet = fetchData.list.get(cell_number);
                         } catch(IndexOutOfBoundsException e) {
-                            System.out.println("The index you have entered is invalid");
+                            //prevent from multiple TTS
+                            if (datafetched == false) {
+                                convertTextToSpeech("Please check your internet connection");
+                                datafetched = true;
+                            }
                             final_planet = "false";
                         }
                         //Only TTS text when the object location is not empty and is changed so one text is not repeated many times
@@ -317,19 +322,27 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             Mat perspectiveTransformation = new Mat();
             //Start detecting Aruco markers
             Aruco.detectMarkers(inputFrame.gray(), dictionary, corners, ids);
+            // Initiate vibration
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
             int sum = 0;
+            // vibrate when more than one and less than three markers are visible
             if (ids.size(0) < 3 && ids.size(0) > 0){
+                //initiate vibro counter
                 vibro = vibro+1;
-
-                if (vibro == 100) {
+                //if markers are not visible on 50 consecutive frames vibrate
+                if (vibro == 50) {
+                    // take care of API versions deprecation
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        v.vibrate(VibrationEffect.createOneShot(300, VibrationEffect.DEFAULT_AMPLITUDE));
+                        v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_DOUBLE_CLICK));
                         vibro = 0;
                     } else {
                         //deprecated in API 26
-                        v.vibrate(300);
+                        //pattern: 0-start without delay, 50- duration, 50-pause, 50-duration (double vibration)
+                        long[] pattern = {0, 50, 50, 50};
+                        // -1 = no repeat
+                        v.vibrate(pattern, -1);
+                        // start over the counter
                         vibro = 0;
                     }
                 }
