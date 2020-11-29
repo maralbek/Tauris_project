@@ -12,9 +12,7 @@ import android.util.Log;
 import android.view.SurfaceView;
 import android.view.WindowManager;
 import android.widget.Toast;
-import com.example.YoloDetectionFiveFingers.CornerPoints;
-import com.example.YoloDetectionFiveFingers.GetWarpedFrame;
-import com.example.YoloDetectionFiveFingers.R;
+
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
 import org.opencv.android.JavaCameraView;
@@ -49,8 +47,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.lang.String;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     private static final String TAG = "OCVSample::Activity";
@@ -465,8 +461,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public void onCameraViewStarted(int width, int height) {
         //initialize appropriate cfg and weights files for detection
-        tinyYoloCfg = getPath("yolov3-tiny_custom.cfg", this);
-        tinyYoloWeights = getPath("yolov3-tiny_custom_last.weights", this);
+        tinyYoloCfg = getPath("yolov3-tiny_custom_anchors.cfg", this);
+        tinyYoloWeights = getPath("yolov3-tiny_custom_anchors.weights", this);
         tinyYolo = Dnn.readNetFromDarknet(tinyYoloCfg, tinyYoloWeights);
 
 

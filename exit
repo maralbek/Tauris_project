@@ -1,0 +1,47 @@
+* [33mcommit 37071a0547cc47c755490b938648c115a374f195[m[33m ([m[1;36mHEAD[m[33m)[m
+[31m|[m Author: maralbek <maralbek19@gmail.com>
+[31m|[m Date:   Thu Nov 26 01:51:14 2020 +0000
+[31m|[m 
+[31m|[m     vibrations fixed, comments added, TTS added
+[31m|[m 
+* [33mcommit 26d11831f864a34eec6e253969060604ef7243d4[m[33m ([m[1;32mmaster[m[33m)[m
+[31m|[m Author: maralbek <maralbek19@gmail.com>
+[31m|[m Date:   Thu Nov 26 00:31:23 2020 +0000
+[31m|[m 
+[31m|[m     out of boundary exception added
+[31m|[m 
+* [33mcommit af566c8ad5a5e6926e4ad4e511a6f6e840635c97[m
+[31m|[m Author: maralbek <maralbek19@gmail.com>
+[31m|[m Date:   Wed Nov 25 23:28:50 2020 +0000
+[31m|[m 
+[31m|[m     vibrate when less than 3 markers visible
+[31m|[m 
+* [33mcommit fca5cecced0bc329813940f1759c50467578d5b2[m[33m ([m[1;31mgithub/master[m[33m)[m
+[31m|[m Author: maralbek <maralbek19@gmail.com>
+[31m|[m Date:   Wed Nov 25 22:57:31 2020 +0000
+[31m|[m 
+[31m|[m     Threshold decreased
+[31m|[m 
+* [33mcommit c5ca576a0e38111a86e7dcbae9875813ef8c0864[m
+[31m|[m Author: maralbek <maralbek19@gmail.com>
+[31m|[m Date:   Mon Nov 2 18:39:28 2020 +0000
+[31m|[m 
+[31m|[m     FPSmeter added when the markers are visble
+[31m|[m 
+* [33mcommit 71b58de56e6cb852d429e6c94d842c00ea83fda2[m
+[31m|[m Author: maralbek <maralbek19@gmail.com>
+[31m|[m Date:   Mon Nov 2 14:58:41 2020 +0000
+[31m|[m 
+[31m|[m     return if all fingers are detected
+[31m|[m 
+* [33mcommit cea15320536fe780abe7b25cb3279d8a299b7f6a[m[33m ([m[1;31morigin/master[m[33m)[m
+[31m|[m Author: maralbek <maralbek19@gmail.com>
+[31m|[m Date:   Mon Oct 26 23:19:31 2020 +0000
+[31m|[m 
+[31m|[m     First commit
+[31m|[m 
+* [33mcommit 40269a233f14b958d7e751550eefd3b6af70c3c5[m[33m ([m[1;31mtauris_app/master[m[33m, [m[1;32mdevelop[m[33m)[m
+  Author: Maralbek <maralbek19@gmail.com>
+  Date:   Fri May 1 13:33:15 2020 +0100
+  
+      Initial commit
