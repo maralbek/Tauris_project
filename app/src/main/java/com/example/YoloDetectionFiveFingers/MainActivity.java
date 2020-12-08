@@ -461,8 +461,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     @Override
     public void onCameraViewStarted(int width, int height) {
         //initialize appropriate cfg and weights files for detection
-        tinyYoloCfg = getPath("yolov3-tiny_custom_anchors.cfg", this);
-        tinyYoloWeights = getPath("yolov3-tiny_custom_anchors.weights", this);
+        tinyYoloCfg = getPath("yolov3-tiny_custom.cfg", this);
+        tinyYoloWeights = getPath("yolov3-tiny_custom_last.weights", this);
         tinyYolo = Dnn.readNetFromDarknet(tinyYoloCfg, tinyYoloWeights);
 
 
