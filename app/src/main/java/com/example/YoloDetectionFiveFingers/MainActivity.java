@@ -59,7 +59,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     boolean datafetched = false;
     int step = 40;
     int counter = 0;
-    int vibro = 0;
+    int vibro1 = 0;
+    int vibro2 = 0;
+
     String final_planet = "false";
 
     FpsMeter fpsMeter = new FpsMeter();
@@ -323,15 +325,17 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
             int sum = 0;
             // vibrate when more than one and less than three markers are visible
-            if (ids.size(0) < 3 && ids.size(0) > 0){
+            if (ids.size(0) == 1) {
                 //initiate vibro counter
-                vibro = vibro+1;
+                vibro1 = vibro1+1;
+                System.out.println("Vibro 1 : "+ vibro1);
+
                 //if markers are not visible on 50 consecutive frames vibrate
-                if (vibro == 50) {
+                if (vibro1 == 50) {
                     // take care of API versions deprecation
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_DOUBLE_CLICK));
-                        vibro = 0;
+                        vibro1 = 0;
                     } else {
                         //deprecated in API 26
                         //pattern: 0-start without delay, 50- duration, 50-pause, 50-duration (double vibration)
@@ -339,12 +343,64 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                         // -1 = no repeat
                         v.vibrate(pattern, -1);
                         // start over the counter
-                        vibro = 0;
+                        vibro1 = 0;
                     }
                 }
             }
+
+            if (ids.size(0) == 2) {
+
+                //initiate vibro2 counter
+                //Notify the user that only two markers are visible and it is advised to recalibrate by making at least 3 markers visible
+                vibro2 = vibro2+1;
+                System.out.println("Vibro 2 : "+ vibro2);
+
+                //if markers are not visible on 10 consecutive frames vibrate
+                if (vibro2 == 10) {
+                    // take care of API versions deprecation
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        v.vibrate(VibrationEffect.createOneShot(100, VibrationEffect.EFFECT_DOUBLE_CLICK));
+                        vibro2 = 0;
+                    } else {
+                        //deprecated in API 26
+                        //pattern: 0-start without delay, 50- duration (single vibration)
+                        long[] pattern = {0, 50};
+                        // -1 = no repeat
+                        v.vibrate(pattern, -1);
+                        // start over the counter
+                        vibro2 = 0;
+                    }
+                }
+
+                fpsMeter.measure();
+                int size = 2;
+                //iterate over each Aruco marker
+                for (int i = 0; i < 2; i++) {
+                    int ID = (int) ids.get(i, 0)[0];
+                    if (ID < 4) { //sometimes wrong ID numbers are detected. So restricted them to <4
+                        Mat markerCorners = corners.get(i);
+                        //call the CornerPoints class
+                        CornerPoints pointvalues = new CornerPoints(markerCorners, ID, size);
+                        //call the method within that class
+                        pointvalues.getMarkerCorners();
+                    }
+                }
+                //it looks like Aruco uses old detected coordinate values if new ones are not detected
+                //get 2D arrays of 4 corner points. Only one corner of each marker is detected to get a new frame enclosed by inner corners
+                int corner_tr[][] = {{CornerPoints.markerfeatures[0][2][1]}, {CornerPoints.markerfeatures[0][2][2]}}; //bottom left corner of TL marker
+                int corner_br[][] = {{CornerPoints.markerfeatures[1][3][1]}, {CornerPoints.markerfeatures[1][3][2]}}; //BR corner of TR marker
+                int corner_bl[][] = {{CornerPoints.markerfeatures[2][0][1]}, {CornerPoints.markerfeatures[2][0][2]}}; //Tl corner of BR marker
+                int corner_tl[][] = {{CornerPoints.markerfeatures[3][1][1]}, {CornerPoints.markerfeatures[3][1][2]}}; //TR corner of BL marker
+                GetWarpedFrame finalframe = new GetWarpedFrame(frame, corner_tr, corner_br, corner_bl, corner_tl);
+                perspectiveTransformation = finalframe.getTransform();
+                frame = yoloDetector(frame, perspectiveTransformation);
+            }
+
+
             //if only 3 markers are detected
             if (ids.size(0) == 3) {
+                vibro1 = 0;
+                vibro2 = 0;
                 fpsMeter.measure();
 
                 int size = 3;
@@ -427,6 +483,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
             //if all of the markers detected
             if (ids.size(0) > 3) {
+                vibro1 = 0;
+                vibro2 = 0;
                 fpsMeter.measure();
                 int size = 4;
                 //iterate over each Aruco marker
