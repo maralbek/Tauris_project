@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.os.StrictMode;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.speech.tts.TextToSpeech;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     boolean fetched = false;
     boolean QRdetected = false;
     boolean datafetched = false;
+    boolean tell_description = false;
     int step = 40;
     int counter = 0;
     int vibro1 = 0;
@@ -96,6 +98,12 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new
+                    StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         cameraBridgeViewBase = (JavaCameraView)findViewById(R.id.CameraView);
         cameraBridgeViewBase.setVisibility(SurfaceView.VISIBLE);
         cameraBridgeViewBase.setCvCameraViewListener(this);
@@ -307,6 +315,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                 QRdetected = true;
                 convertTextToSpeech("QR code scanned successfully");
 
+
             }
 
 
@@ -322,6 +331,14 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             Aruco.detectMarkers(inputFrame.gray(), dictionary, corners, ids);
             // Initiate vibration
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+            // Initiate descriptions when at least one marker is visible
+            // it will initiated only once
+            if (ids.size(0) >= 1 && tell_description == false) {
+                String description = fetchData.list.get(0);
+                convertTextToSpeech(description);
+                tell_description = true;
+            }
 
             int sum = 0;
             // vibrate when more than one and less than three markers are visible
