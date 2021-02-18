@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
     int counter = 0;
     int vibro1 = 0;
     int vibro2 = 0;
+    int timer = 0;
 
     String final_planet = "false";
 
@@ -269,7 +270,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                         System.out.println("cell number is " + cell_number);
                         // catch exception if json file was not downloaded
                         try {
-                            final_planet = fetchData.list.get(cell_number);
+                            String cell_number_string = String.valueOf(cell_number);
+                            final_planet = fetchData.dict.get(cell_number_string);
                         } catch(IndexOutOfBoundsException e) {
                             //prevent from multiple TTS
                             if (datafetched == false) {
@@ -282,7 +284,25 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                         if (!final_planet.equals(newResult) && !"false".equals(final_planet)) {
                             convertTextToSpeech(final_planet);
                             newResult = final_planet; //this is used to compare old and new text
+                            timer = 0;
                         }
+
+                        else if (final_planet.equals(newResult)) {
+                            timer = timer + 1;
+                            Log.d("timer: ", "> " + timer);   //here u ll get whole response...... :-)
+
+                            if (timer == 6){
+                                String description = fetchData.dict.get(final_planet);
+                                convertTextToSpeech(description);
+                                timer = 0;
+                            }
+                        }
+
+                        else if ("false".equals(final_planet)) {
+                            timer = 0;
+                        }
+
+
                         //draw the box around the index frame
                         Imgproc.putText(frame, cocoNames.get(1) + " " + intConf + "%", box.tl(), Imgproc.FONT_HERSHEY_COMPLEX, 2, new Scalar(0, 0, 0), 2);
                         Imgproc.rectangle(frame, box.tl(), box.br(), new Scalar(255, 0, 0), 2);
@@ -338,8 +358,8 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             // it will initiated only once
             if (ids.size(0) >= 2 && tell_description == false) {
                 if(fetchData.dict.get("title") != null && !fetchData.dict.get("title").trim().isEmpty()) {
-                    String description = fetchData.dict.get("title");
-                    convertTextToSpeech(description);
+                    String title = fetchData.dict.get("title");
+                    convertTextToSpeech(title);
                     tell_description = true;
                 }
             }
