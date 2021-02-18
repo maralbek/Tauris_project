@@ -13,11 +13,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.*;
+import static java.lang.System.out;
 
 public class fetchData extends AsyncTask<String, String, String> {
 
     public static List<String> list = new ArrayList<String>();
+    public static HashMap<String, String> dict = new HashMap<String, String>();
     String fetched_data;
 
 
@@ -44,6 +49,17 @@ public class fetchData extends AsyncTask<String, String, String> {
 
                 fetched_data = line;
                 Log.d("Response: ", "> " + fetched_data);   //here u ll get whole response...... :-)
+
+            }
+            fetched_data = fetched_data.substring(1, fetched_data.length()-1);//remove curly brackets
+            fetched_data = fetched_data.replaceAll("\"", "");
+            String[] keyValuePairs = fetched_data.split(",");
+
+
+            for (String s : keyValuePairs) {
+                String key = s.split(":")[0];
+                String value = s.split(":")[1];
+                dict.put(key,value);
 
             }
 

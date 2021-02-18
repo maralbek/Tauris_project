@@ -48,6 +48,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.lang.String;
+import static java.lang.System.out;
+
 
 public class MainActivity extends AppCompatActivity implements CameraBridgeViewBase.CvCameraViewListener2 {
     private static final String TAG = "OCVSample::Activity";
@@ -334,10 +336,12 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
 
             // Initiate descriptions when at least one marker is visible
             // it will initiated only once
-            if (ids.size(0) >= 1 && tell_description == false) {
-                String description = fetchData.list.get(0);
-                convertTextToSpeech(description);
-                tell_description = true;
+            if (ids.size(0) >= 2 && tell_description == false) {
+                if(fetchData.dict.get("title") != null && !fetchData.dict.get("title").trim().isEmpty()) {
+                    String description = fetchData.dict.get("title");
+                    convertTextToSpeech(description);
+                    tell_description = true;
+                }
             }
 
             int sum = 0;
@@ -345,7 +349,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             if (ids.size(0) == 1) {
                 //initiate vibro counter
                 vibro1 = vibro1+1;
-                System.out.println("Vibro 1 : "+ vibro1);
+                //System.out.println("Vibro 1 : "+ vibro1);
 
                 //if markers are not visible on 50 consecutive frames vibrate
                 if (vibro1 == 50) {
@@ -370,7 +374,7 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                 //initiate vibro2 counter
                 //Notify the user that only two markers are visible and it is advised to recalibrate by making at least 3 markers visible
                 vibro2 = vibro2+1;
-                System.out.println("Vibro 2 : "+ vibro2);
+                //System.out.println("Vibro 2 : "+ vibro2);
 
                 //if markers are not visible on 10 consecutive frames vibrate
                 if (vibro2 == 10) {
