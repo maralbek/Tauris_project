@@ -326,7 +326,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
             //new fetchData().execute("https://api.jsonbin.io/b/5ea97ac94c87c3359a63bd78");//Uk map
             //https://api.jsonbin.io/b/5ea9bb884c87c3359a63db73
             if (counter % step ==0){
-                convertTextToSpeech("Please scan the QR code first");
+                //convertTextToSpeech("Please scan the QR code first");
+                convertTextToSpeech("Пожалуйста отсканируйте кью ар код");
+
             }
             counter+=1;
 
@@ -335,7 +337,9 @@ public class MainActivity extends AppCompatActivity implements CameraBridgeViewB
                 Log.d("QRcode text: ", QRtext);
                 new fetchData().execute(QRtext);//shapes
                 QRdetected = true;
-                convertTextToSpeech("QR code scanned successfully");
+                //convertTextToSpeech("QR code scanned successfully");
+                convertTextToSpeech("кью ар Код отсканирован");
+
 
 
             }
