@@ -48,7 +48,7 @@ For more details, please refer to our **[research paper](#)** (**link coming soo
 ## 📹 Video Demos & Media Coverage
 
 📽️ **Video Demonstrations**  
-- [![TAURIS Demo](videos/)](https://youtu.be/FHcIDsY10RU)
+- [![TAURIS Demo](TAURIS_demo.jpeg)](https://youtu.be/FHcIDsY10RU)
 
 - [![Watch the video](TAURIS-APP_DEMO_EN.mp4)](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/blob/main/assets/video.mp4)
 
