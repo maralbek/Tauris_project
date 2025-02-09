@@ -25,13 +25,13 @@ Traditional methods of accessing tactile graphics—such as Braille labels or sc
 
 ### 📱 Mobile App
 
-1. Download the TAURIS app (**link coming soon**).
+1. Download the TAURIS app.
 2. Open the app and scan a pre-labelled tactile graphic using your device’s camera.
 3. Explore the tactile graphic by touch and receive real-time audio feedback.
 
 ### 🌐 Web Tool
 
-1. Visit [TAURIS Web Tool](#) (**link coming soon**).
+1. Visit [TAURIS Web Tool].
 2. Upload tactile graphics and add structured annotations.
 3. Save and export labelled graphics for use with the mobile app.
 
@@ -50,14 +50,12 @@ For more details, please refer to our **[research paper](#)** (**link coming soo
 📽️ **Video Demonstrations**  
 - [![TAURIS Demo](TAURIS_demo.jpeg)](https://youtu.be/FHcIDsY10RU)
 
-- [![Watch the video](TAURIS-APP_DEMO_EN.mp4)](https://github.com/YOUR_USERNAME/YOUR_REPOSITORY/blob/main/assets/video.mp4)
-
 📰 **Research Paper**  
 - [Read here](https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=9954390)  
 
 📰 **News Coverage**  
-- [Coverage 1](https://www.nur.kz/technologies/software/2087096-iz-velikobritanii-v-shymkent-vypusknik-bolashaka-vernulsya-v-kazahstan-s-tehnologiey-buduschego-dlya-slepyh/)  
-- [Coverage 2](https://youtu.be/X2jTyzY4PmE?si=GjPDt3nSSqU9CmYJ)  
+- [NUR.KZ](https://www.nur.kz/technologies/software/2087096-iz-velikobritanii-v-shymkent-vypusknik-bolashaka-vernulsya-v-kazahstan-s-tehnologiey-buduschego-dlya-slepyh/)  
+- [KHAN-TV](https://youtu.be/X2jTyzY4PmE?si=GjPDt3nSSqU9CmYJ)  
 
 ## 🔮 Future Work
 
