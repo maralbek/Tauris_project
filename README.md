@@ -75,6 +75,4 @@ TAURIS is released under the **[MIT License](LICENSE)**.
 
 For questions, collaborations, or feedback, please reach out to **[maralbek.zeinullin[at]gmail]** or open an issue on this repository.
 
----
 
-Once you provide the links for video demos, paper, and media coverage, I can update the README accordingly! 🚀
