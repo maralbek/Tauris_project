@@ -73,7 +73,7 @@ TAURIS is released under the **[MIT License](LICENSE)**.
 
 ## 📩 Contact
 
-For questions, collaborations, or feedback, please reach out to **[Your Email]** or open an issue on this repository.
+For questions, collaborations, or feedback, please reach out to **[maralbek.zeinullin[at]gmail]** or open an issue on this repository.
 
 ---
 
